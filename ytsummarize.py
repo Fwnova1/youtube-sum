@@ -101,9 +101,15 @@ def download_audio(video_url):
 
 
 def transcribe_audio(audio_path):
-    """Converts audio to text using OpenAI Whisper."""
+    """
+    Converts audio to text using OpenAI's updated API.
+    """
     with open(audio_path, "rb") as audio_file:
-        result = openai.Audio.transcribe("whisper-1", audio_file)
+        result = openai.Audio.transcriptions.create(
+            model="whisper-1",
+            file=audio_file,
+            response_format='text'
+        )
     return result["text"]
 
 
